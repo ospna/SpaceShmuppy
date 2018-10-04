@@ -251,6 +251,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &311597141
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254235273925544, guid: f4304e41718779744b21abab369b168e, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f4304e41718779744b21abab369b168e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &463245897
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +332,7 @@ GameObject:
   - component: {fileID: 587146061}
   - component: {fileID: 587146063}
   - component: {fileID: 587146062}
+  - component: {fileID: 587146064}
   m_Layer: 0
   m_Name: _Hero
   m_TagString: Untagged
@@ -343,6 +386,22 @@ MonoBehaviour:
   rollMult: -45
   pitchMult: 30
   shieldLevel: 1
+--- !u!114 &587146064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 587146060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ca924e4c3e99c419863c417b66e837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 4
+  keepOnScreen: 1
+  isOnScreen: 1
+  camWidth: 0
+  camHeight: 0
 --- !u!1 &689571551
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,3 +669,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a33a68d6cfd42498225c41a0df1eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationsPerSecond: 0.1
+  levelShown: 0
