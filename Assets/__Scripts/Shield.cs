@@ -10,7 +10,7 @@ public class Shield : MonoBehaviour
 
     [Header("set Dynamically")]
     public int levelShown = 0;
-
+    
     Material mat;
 
 	// Use this for initialization
