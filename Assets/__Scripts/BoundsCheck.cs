@@ -31,6 +31,7 @@ public class BoundsCheck : MonoBehaviour
     {
         Vector3 pos = transform.position;
         isOnScreen = true;
+        offRight = offLeft = offUp = offDown = false;
 
         if(pos.x > camWidth - radius)
         {
