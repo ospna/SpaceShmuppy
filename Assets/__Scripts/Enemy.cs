@@ -9,12 +9,27 @@ public class Enemy : MonoBehaviour
     public float fireRate = 0.3f;   // secd=onds per shot
     public float health = 10;
     public int score = 100;         // points earned for destroying
+    public float showDamageDuration = 0.1f;     // # seconds to show damage
+
+    [Header("Set Dynamically")]
+    public Color[] originalColors;
+    public Material[] materials;
+    public bool showingDamage = false;
+    public float damageDoneTime;
+    public bool notifiedOfDestruction = false;
 
     protected BoundsCheck bndCheck;
 
     void Awake()
     {
         bndCheck = GetComponent<BoundsCheck>();
+
+        materials = Utils.GetAllMaterials(gameObject);
+        originalColors = new Color[materials.Length];
+        for(int i = 0; i < materials.Length; i++)
+        {
+            originalColors[i] = materials[i].color;
+        }
     }
 
     // Property : method that acts like a field
@@ -35,6 +50,11 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
+        if(showingDamage && Time.time > damageDoneTime)
+        {
+            UnShowDamage();
+        }
+
         if(bndCheck != null && bndCheck.offDown)
         {
             // check to make sure its gone off screen
@@ -53,18 +73,52 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
-    private void OnCollisionEnter(Collision coll)
+    void OnCollisionEnter(Collision coll)
     {
         GameObject otherGO = coll.gameObject;
-        
-        if(otherGO.tag == "ProjectileHero")
+        switch (otherGO.tag)
         {
-            Destroy(otherGO);
-            Destroy(gameObject);
+            case "ProjectileHero":
+                Projectile p = otherGO.GetComponent<Projectile>();
+                // if this enemy is off screen, dont damage it
+                if (!bndCheck.isOnScreen)
+                {
+                    Destroy(otherGO);
+                    break;
+                }
+
+                // Hurt this enemy by getting the damage amount from the WEAP_DICT
+                ShowDamage();
+                health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+                if(health <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+                Destroy(otherGO);
+                break;
+
+            default:
+                print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+                break;
         }
-        else
+    }
+
+    void ShowDamage()
+    {
+        foreach(Material m in materials)
         {
-            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+            m.color = Color.red;
         }
+        showingDamage = true;
+        damageDoneTime = Time.time + showDamageDuration;
+    }
+
+    void UnShowDamage()
+    {
+        for(int i = 0; i < materials.Length; i++)
+        {
+            materials[i].color = originalColors[i];
+        }
+        showingDamage = false;
     }
 }
