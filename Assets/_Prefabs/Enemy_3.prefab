@@ -314,6 +314,13 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
+  showDamageDuration: 0.1
+  powerUpDropChance: 0.75
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
+  notifiedOfDestruction: 0
   lifeTime: 5
   points: []
   birthTime: 0
