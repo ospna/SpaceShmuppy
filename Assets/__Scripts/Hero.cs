@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public class Hero : MonoBehaviour
         {
             print("Triggered by non-Enemy: " + go.name);
         }
+
     }
 
     public void AbsorbPowerUp(GameObject go)
