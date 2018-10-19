@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
@@ -21,11 +22,25 @@ public class Main : MonoBehaviour
     };
 
     private BoundsCheck bndCheck;
+    private Text scoreGT;
+
+    private void Start()
+    {
+        // Find a reference to the ScoreCounter GameObject
+        GameObject scoreGO = GameObject.Find("ScoreCounter");
+
+        // Get the Text Component of that GameObject
+        scoreGT = scoreGO.GetComponent<Text>();
+
+        // Set the starting number of points to 0;
+        scoreGT.text = "0";
+    }
+   
 
     public void ShipDestroyed(Enemy e)
     {
         // generate a power up
-        if(Random.value <= e.powerUpDropChance)
+        if (Random.value <= e.powerUpDropChance)
         {
             // choose which PowerUp will spawn and how often
             int ndx = Random.Range(0, powerUpFrequency.Length);
@@ -38,6 +53,21 @@ public class Main : MonoBehaviour
             // set it to the position of the destroyed ship
             pu.transform.position = e.transform.position;
         }
+
+         // Parse the text of the ScoreGT into an int
+         int score = int.Parse(scoreGT.text);
+
+         // Add points for catching the apple
+         score += 100;
+
+         // Convert the score back to a string and display to
+         scoreGT.text = score.ToString();
+
+         // Track the high score
+         if (score > HighScore.score)
+         {
+            HighScore.score = score;
+         }
     }
 
     void Awake()
@@ -87,7 +117,7 @@ public class Main : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("_Scene_0");
+        SceneManager.LoadScene("GameOver");
     }
 
     /// <summary>

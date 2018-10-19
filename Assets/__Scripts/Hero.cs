@@ -28,7 +28,7 @@ public class Hero : MonoBehaviour
 
     void Start()
     {
-        if(S == null)
+        if (S == null)
         {
             S = this;
 
@@ -43,8 +43,8 @@ public class Hero : MonoBehaviour
         //fireDelegate += TempFire;
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
 
         // pull in information from the Input class
@@ -61,11 +61,11 @@ public class Hero : MonoBehaviour
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 
         // allow the ship to fire weapons Using fireDelegate
-        if (Input.GetAxis("Jump") == 1 &&fireDelegate != null)
+        if (Input.GetAxis("Jump") == 1 && fireDelegate != null)
         {
             fireDelegate();
         }
-	}
+    }
 
     void TempFire()
     {
@@ -83,19 +83,19 @@ public class Hero : MonoBehaviour
     {
         Transform rootT = other.gameObject.transform.root;
         GameObject go = rootT.gameObject;
-      
+
         if (go == lastTriggerGo)
         {
             return;
         }
         lastTriggerGo = go;
 
-        if(go.tag == "Enemy")
+        if (go.tag == "Enemy")
         {
             shieldLevel--;
             Destroy(go);
         }
-        else if(go.tag == "PowerUp")
+        else if (go.tag == "PowerUp")
         {
             AbsorbPowerUp(go);
         }
@@ -111,15 +111,15 @@ public class Hero : MonoBehaviour
         PowerUp pu = go.GetComponent<PowerUp>();
         switch (pu.type)
         {
-            case WeaponType.shield:     
+            case WeaponType.shield:
                 shieldLevel++;
                 break;
 
             default:
-                if(pu.type == weapons[0].type)
+                if (pu.type == weapons[0].type)
                 {
                     Weapon w = GetEmptyWeaponSlot();
-                    if(w != null)
+                    if (w != null)
                     {
                         w.SetType(pu.type);
                     }
@@ -144,7 +144,7 @@ public class Hero : MonoBehaviour
         {
             _shieldLevel = Mathf.Min(value, 4);
 
-            if(value < 0)
+            if (value < 0)
             {
                 Destroy(this.gameObject);
                 Main.S.DelayedRestart(gameRestartDelay);
@@ -154,9 +154,9 @@ public class Hero : MonoBehaviour
 
     Weapon GetEmptyWeaponSlot()
     {
-        for(int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < weapons.Length; i++)
         {
-            if(weapons[i].type == WeaponType.none)
+            if (weapons[i].type == WeaponType.none)
             {
                 return (weapons[i]);
             }
@@ -166,7 +166,7 @@ public class Hero : MonoBehaviour
 
     void ClearWeapons()
     {
-        foreach(Weapon w in weapons)
+        foreach (Weapon w in weapons)
         {
             w.SetType(WeaponType.none);
         }
